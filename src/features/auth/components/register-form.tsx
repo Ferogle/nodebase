@@ -84,9 +84,11 @@ export function RegisterForm() {
                             <div className="grid gap-6">
                                 <div className="flex flex-col gap-4">
                                     <Button variant="outline" disabled={isPending} className={cn(buttonVariants({variant: "outline"}), "w-full")}>
+                                        <Image src="/logos/github.svg" alt="Github Logo" width={20} height={20} className="mr-2"/>
                                         Continue with Google
                                     </Button>
                                     <Button variant="outline" disabled={isPending} className={cn(buttonVariants({variant: "outline"}), "w-full")}>
+                                        <Image src="/logos/github.svg" alt="Github Logo" width={20} height={20} className="mr-2"/>
                                         Continue with Github
                                     </Button>
                                 </div>
