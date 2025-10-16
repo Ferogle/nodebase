@@ -1,35 +1,20 @@
-// 'use client';
 
 import { cn } from "@/lib/utils";
-import {prisma} from "@/lib/db";
-import {caller} from '@/trpc/server';
-import { useTRPC } from "@/trpc/client";
-import { useQuery } from "@tanstack/react-query";
-import Client from "./client";
-import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
-import { getQueryClient, trpc } from "@/trpc/server";
-import { Suspense } from "react";
+import { authClient, useSession } from "@/lib/auth-client";
+import {Button} from "@/components/ui/button"
+import { requireAuth } from "@/lib/auth-utils";
+import { caller } from "@/trpc/server";
+import { LogoutButton } from "./logout";
 
 export default async function Page() {
 
-  const users = await caller.getUsers();
-  const queryClient = getQueryClient();
-
-  // const trpcClient = useTRPC();
-  // const {data: users} = useQuery(trpcClient.getUsers.queryOptions());
-
-  queryClient.prefetchQuery(trpc.getUsers.queryOptions());
+  const data = await caller.getUsers();
 
   return (
     <div className={cn("text-red-500 font-extrabold")}>
-      Hello World!
-      {/* <pre>{JSON.stringify(users, null, 2)}</pre>
-       */}
-       <HydrationBoundary state={dehydrate(queryClient)}>
-          <Suspense fallback={<p>loading...</p>}>
-            <Client users={users}/>
-          </Suspense>
-       </HydrationBoundary>
+      protected server component
+      {JSON.stringify(data)}
+      <LogoutButton/>
     </div>
   );
 }
